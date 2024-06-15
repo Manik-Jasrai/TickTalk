@@ -1,7 +1,18 @@
-import { Schema, model } from "mongoose";
+import { Schema, model,Document } from "mongoose";
 
-const UserSchema : Schema = new Schema(
+export interface IUser extends Document {
+    refreshToken ?: string;
+    username: string;
+    password: string;
+    name?: string;
+    status: "online" | "offline";
+    profile?: string | null;
+    chats: Schema.Types.ObjectId[];
+}
+
+const UserSchema : Schema<IUser> = new Schema(
     {
+        refreshToken : String,
         username : {
             type : String,
             required : true,
@@ -30,4 +41,4 @@ const UserSchema : Schema = new Schema(
     }
 );
 
-export default model('User',UserSchema)
+export default model<IUser>('User',UserSchema)

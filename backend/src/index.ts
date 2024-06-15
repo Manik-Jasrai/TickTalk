@@ -7,7 +7,7 @@ import cors from "cors"
 
 //routes
 import registerRouter from "./routes/register";
-
+import loginRouter from "./routes/login";
 //connecting to DB
 connectDB();
 
@@ -23,6 +23,7 @@ app.use(cors());
 
 
 app.use('/register',registerRouter);
+app.use('/login',loginRouter);
 app.get('/',(req : Request,res : Response) => {
     res.send("Hello");
 });
