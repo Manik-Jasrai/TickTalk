@@ -1,8 +1,10 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, Types } from "mongoose";
 
 // Define the TypeScript interface
 interface IMessage extends Document {
-    sender: Schema.Types.ObjectId;
+    _id : Schema.Types.ObjectId;
+    sender: String;
+    receiver: String;
     content?: string;
     readStatus: boolean;
     timeStamp: Date;
@@ -12,8 +14,11 @@ interface IMessage extends Document {
 const MessageSchema: Schema<IMessage> = new Schema(
     {
         sender: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
+            type: String,
+            required: true
+        },
+        receiver: {
+            type: String,
             required: true
         },
         content: {

@@ -26,7 +26,7 @@ export const handleRefresh = async (req : Request,res : Response) => {
                     }
                 },//payload
                 process.env.ACCESS_TOKEN_SECRET as string,
-                { expiresIn : '30s'}
+                { expiresIn : '30m'}
             );
 
             res.json({ accessToken });

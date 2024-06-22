@@ -2,15 +2,13 @@ import { configDotenv } from "dotenv";
 configDotenv();
 import express,{ Express,Request,Response } from "express";
 import http from "http";
-import { WebSocketServer } from "ws";
-import { WebSocketConnection } from "./websocket";
 import mongoose from "mongoose";
 import connectDB from "./config/connectDB";
 import cors from "cors"
 import cookieParser from "cookie-parser";
+import WebSocketFunction from "./websocket";
 
 //types
-
 declare global {
     interface JwtPayload {
         User: {
@@ -25,6 +23,7 @@ declare global {
         }
     }
 }
+
 //routes
 import registerRouter from "./routes/register";
 import loginRouter from "./routes/login";
@@ -36,7 +35,6 @@ connectDB();
 
 const app : Express = express();
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server : server });
 const PORT = 3000;
 
 //middlewares
@@ -58,7 +56,7 @@ app.get('/helloworld',(req : Request,res : Response) => {
     res.send("Hello World");
 });
 
-wss.on("connection",WebSocketConnection);
+WebSocketFunction(server);
 
 mongoose.connection.once('open',()=> {
     console.log('Connected to mongoDB');

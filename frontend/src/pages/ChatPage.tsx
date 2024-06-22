@@ -4,7 +4,7 @@ import HomePage from "../components/HomePage"
 
 const ChatPage = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen w-full">
         <ContactList />
         <Chat />
         
