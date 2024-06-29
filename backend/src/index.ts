@@ -7,6 +7,7 @@ import connectDB from "./config/connectDB";
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import WebSocketFunction from "./websocket";
+import { logger } from "./middleware/logger";
 
 //types
 declare global {
@@ -43,6 +44,7 @@ app.use(express.urlencoded({extended : false}));
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+app.use(logger);
 
 //Routes
 app.use('/register',registerRouter);

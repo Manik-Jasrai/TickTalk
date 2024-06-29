@@ -50,5 +50,5 @@ export const updateChat = async (msgObject : any) => {
         await chat.save();
     }
 
-    return;
+    return message;
 }

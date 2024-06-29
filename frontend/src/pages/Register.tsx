@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "../api/axios";
 
 const Register = () => {
   const [username , setUsername] = useState<string>('');
   const [password , setPassword] = useState<string>('');
-
+  const navigate = useNavigate();
   const [errMsg , setErrMsg] = useState<string>('');
 
   const handleSubmit = async (e : any) => {
@@ -24,6 +24,7 @@ const Register = () => {
       setErrMsg('');
 
       // Redirect to Login Page
+      navigate('/login');
     } catch (err : any) {
       if (err?.response?.status === 409) {
           setErrMsg('Username Taken');

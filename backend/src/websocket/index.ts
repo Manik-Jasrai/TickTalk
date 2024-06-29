@@ -26,7 +26,7 @@ const WebSocketFunction = (expressServer : Server) => {
         onlineClients[username] = ws;
 
         // On Message
-        ws.on('message',(message)=>{
+        ws.on('message',async (message)=>{
             // verify the message
             const msgObject = JSON.parse(message.toString());
             
@@ -37,13 +37,19 @@ const WebSocketFunction = (expressServer : Server) => {
                 content : msgObject.content
             };
             // Register to DB
-            updateChat(newMessage);
+            const messageCreated = await updateChat(newMessage);
+            console.log('updated db');
+            //send back to sender if online
+            const sender : WebSocket | undefined = onlineClients[newMessage.sender];
+            if (sender && sender.readyState == WebSocket.OPEN) {
+                sender.send(JSON.stringify(messageCreated));
+            }
             
             // send to reciever if online
             const onlineReceiver : WebSocket | undefined = onlineClients[newMessage.receiver];
             if (onlineReceiver && onlineReceiver.readyState == WebSocket.OPEN) {
                 // send to receiver
-                onlineReceiver.send(JSON.stringify(newMessage));
+                onlineReceiver.send(JSON.stringify(messageCreated));
             }
         });
 
