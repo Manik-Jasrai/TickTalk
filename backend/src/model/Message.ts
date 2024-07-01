@@ -8,6 +8,7 @@ interface IMessage extends Document {
     content?: string;
     readStatus: boolean;
     timeStamp: Date;
+    chat : Schema.Types.ObjectId;
 }
 
 // Define the Mongoose schema
@@ -31,6 +32,10 @@ const MessageSchema: Schema<IMessage> = new Schema(
         timeStamp: {
             type: Date,
             default: Date.now
+        },
+        chat : {
+            type : Schema.Types.ObjectId,
+            ref : "Chat"
         }
     },
     {
