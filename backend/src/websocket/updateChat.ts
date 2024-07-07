@@ -23,10 +23,10 @@ const createChat = async (msgObject : any) => {
 export const updateChat = async (msgObject : any) => {
 
     const existingChat = await Chat.findOne({ 
-        members : {
-            $all : [msgObject.sender,msgObject.receiver]
+        members: {
+          $all: [msgObject.sender, msgObject.receiver]
         }
-    }).exec();
+      }).exec();
 
     let chat;
     if (!existingChat) {
@@ -49,6 +49,11 @@ export const updateChat = async (msgObject : any) => {
         chat.lastMessage = message._id;
         await chat.save();
     }
+    chat = await Chat.findOne({ 
+        members: {
+            $all: [msgObject.sender, msgObject.receiver]
+        }
+    }).populate({path : "messages lastMessage"}).exec();
 
-    return message;
+    return {message , chat};
 }

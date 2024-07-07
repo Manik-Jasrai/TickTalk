@@ -24,18 +24,6 @@ const Chat = ({ socket , currChat, setCurrChat } : {socket : WebSocket | null , 
     setInput('');
   };
   
-  useEffect(() => {
-    if (socket) {
-      socket.onmessage = (message) =>{
-        const newMessage = JSON.parse(message.data);
-        setCurrChat((prevChat : any) => ({
-          ...prevChat,
-          lastMessage: newMessage,
-          messages: [...prevChat.messages, newMessage],
-        }));
-      }
-    }
-  },[socket]);
 
   useEffect(()=>{
     setMessages(currChat.messages || []);

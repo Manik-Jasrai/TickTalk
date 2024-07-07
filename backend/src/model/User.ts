@@ -33,7 +33,7 @@ const UserSchema : Schema<IUser> = new Schema(
         },
         profile :{
             type : String,
-            default : null
+            default : 'default.jpg'
         },
         chats : [{
             type : Schema.Types.ObjectId,
