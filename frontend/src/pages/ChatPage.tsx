@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
+import { useRecoilValue } from "recoil"
+import axios from "../api/axios"
+import { userState } from "../atoms/userState"
 import Chat from "../components/Chat"
 import ContactList from "../components/ContactList"
 import HomePage from "../components/HomePage"
-import { useRecoilValue } from "recoil"
-import { userState } from "../atoms/userState"
-import axios from "../api/axios"
+import NewUser from "../components/NewUser"
 
 const getAllChats = async (user : any, setChats : any) => {
   try {
@@ -25,6 +26,7 @@ const ChatPage = () => {
   const user = useRecoilValue(userState);
   const [socket,setSocket] = useState<WebSocket | null >(null);
   const [currChat,setCurrChat] = useState<any | null>(null);
+  const [addUserPage , setAddUserPage] = useState<boolean>(false);
   const [chats , setChats] = useState<any[] | null>(null);
 
   useEffect(() =>{
@@ -40,8 +42,7 @@ const ChatPage = () => {
         setChats((prevChats) => {
           if (!prevChats) return prevChats;
 
-          const chatExists = chats?.some(chat => chat._id == data.chat._id);
-
+          const chatExists = prevChats.some(chat => chat._id === data.chat._id);
           let updatedChats;
           if (chatExists) {
             updatedChats = prevChats.map(chat => {
@@ -88,11 +89,18 @@ const ChatPage = () => {
     }
   },[chats])
 
+  useEffect(()=>{
+    if(currChat) {
+      setAddUserPage(false);
+    }
+  },[currChat])
+
   return (
     <div className="flex h-screen w-full">
       <ContactList
         setCurrChat={setCurrChat}
         chats = {chats}
+        setAddUserPage = {setAddUserPage}
       />
 
       {currChat ? 
@@ -100,7 +108,11 @@ const ChatPage = () => {
           socket={socket}
           currChat={currChat}
         />
-        : <HomePage />
+        : addUserPage ? 
+        <NewUser
+          socket={socket}
+        />
+        :<HomePage />
       }
     </div>
   )

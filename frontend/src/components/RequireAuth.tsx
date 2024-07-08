@@ -5,14 +5,6 @@ import { Navigate, Outlet } from "react-router-dom";
 
 function RequireAuth () {
     const authed = useRecoilValue(authState);
-
-    // if (authed ) {
-    //     return (<Outlet />)
-    // } else {
-    //     const refresh = useRefreshToken();
-    //     refresh();
-    //     return 
-    // }
     return ( authed ? <Outlet /> : <Navigate to = "/login" replace />)
 }
 

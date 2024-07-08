@@ -12,7 +12,7 @@ export const getAllChats = async (req : Request,res : Response) => {
                 populate: [
                     { path: "members" },
                     { path: "messages" },
-                    { path: "lastMessage", select: "timeStamp" }
+                    { path: "lastMessage" }
                 ]
             })
             .exec();
