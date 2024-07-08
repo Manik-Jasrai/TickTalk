@@ -78,8 +78,6 @@ const ChatPage = () => {
     <div className="flex h-screen w-full">
       <ContactList
         currChat={currChat}
-        setCurrChat={setCurrChat}
-        chats = {chats}
         setChats = {setChats}
       />
 
@@ -87,7 +85,6 @@ const ChatPage = () => {
         <Chat
           socket={socket}
           currChat={currChat}
-          setCurrChat={setCurrChat}
         />
         : <HomePage />
       }

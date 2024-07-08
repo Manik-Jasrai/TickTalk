@@ -34,7 +34,7 @@ export const handleLogin = async (req : Request,res : Response) => {
         await User.updateOne(validUser as FilterQuery<IUser>, {  refreshToken });
         
         res.cookie('jwt',refreshToken,{ httpOnly:true, maxAge : 24 * 60 * 60 * 1000 });
-        res.json( {accessToken} );
+        res.json( {accessToken , validUser } );
     } else {
         res.sendStatus(401);
     }

@@ -6,7 +6,7 @@ import findOtherValue from "../utils/findOtherValue"
 import { useRecoilValue } from "recoil"
 import { userState } from "../atoms/userState"
 
-const Chat = ({ socket , currChat, setCurrChat } : {socket : WebSocket | null , currChat : any, setCurrChat : any }) => {
+const Chat = ({ socket , currChat} : {socket : WebSocket | null , currChat : any }) => {
   const user = useRecoilValue(userState);
   const username = findOtherValue(currChat.members , user.username as string);
   const [input , setInput] = useState<string>('');

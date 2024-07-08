@@ -3,12 +3,14 @@ import { atom, selector } from "recoil";
 type user = {
     username : string | null;
     token : string | null;
+    profile : string;
 }
 export const userState = atom<user>({
     key : 'User',
     default : {
         username : null,
-        token : null
+        token : null,
+        profile : 'default.jpg'
     }
 });
 

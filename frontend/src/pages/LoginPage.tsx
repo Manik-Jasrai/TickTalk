@@ -31,9 +31,11 @@ const LoginPage = () => {
       )
       setErrMsg('');
       const token = response?.data?.accessToken;
+      const validUser = response?.data?.validUser;
       setUser({
         username,
-        token
+        token,
+        profile : validUser?.profile
       });
       
       navigate('/');
