@@ -38,16 +38,30 @@ const ChatPage = () => {
       newSocket.onmessage = (message) => {
         const data = JSON.parse(message.data);
         setChats((prevChats) => {
-            if (!prevChats) return prevChats;
+          if (!prevChats) return prevChats;
 
-            const updatedChats = prevChats.map(chat => {
+          const chatExists = chats?.some(chat => chat._id == data.chat._id);
+
+          let updatedChats;
+          if (chatExists) {
+            updatedChats = prevChats.map(chat => {
               if (chat._id == data.chat._id) {
                 return {...chat , ...data.chat}
               }
               return chat;
             });
-            return updatedChats;
-        });
+
+            const updatedChat = updatedChats.find(chat => chat._id === data.chat._id);
+            const filteredChats = updatedChats.filter(chat => chat._id !== data.chat._id);
+
+            return [updatedChat , ...filteredChats];
+            
+          } else {
+            updatedChats = [ data.chat,...prevChats];
+          }
+
+          return updatedChats;
+      });
       };
 
       setSocket(newSocket);
