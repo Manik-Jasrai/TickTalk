@@ -1,9 +1,9 @@
-import { Schema, model, Document, Types } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
 // Define the TypeScript interface
 interface IChat extends Document {
     _id : Schema.Types.ObjectId;
-    members: String[];
+    members: Schema.Types.ObjectId[];
     messages: Schema.Types.ObjectId[];
     lastMessage: Schema.Types.ObjectId | null;
 }
@@ -11,7 +11,10 @@ interface IChat extends Document {
 // Define the Mongoose schema
 const ChatSchema: Schema<IChat> = new Schema(
     {
-        members: [String],
+        members: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }],
         messages: [{
             type: Schema.Types.ObjectId,
             ref: 'Message'

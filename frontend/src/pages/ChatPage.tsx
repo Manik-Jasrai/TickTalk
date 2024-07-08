@@ -77,8 +77,8 @@ const ChatPage = () => {
   return (
     <div className="flex h-screen w-full">
       <ContactList
-        currChat={currChat}
-        setChats = {setChats}
+        setCurrChat={setCurrChat}
+        chats = {chats}
       />
 
       {currChat ? 

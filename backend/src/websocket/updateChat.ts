@@ -4,14 +4,14 @@ import User from "../model/User";
 
 const createChat = async (msgObject : any) => {
 
+    const sender = await User.findOne({username : msgObject.sender});
+    const receiver = await User.findOne({username : msgObject.receiver});
     const newChat = await Chat.create({
-        members : [msgObject.sender,msgObject.receiver],
+        members : [sender?._id,receiver?._id],
         messages : []
     });
 
-    const sender = await User.findOne({username : msgObject.sender});
     sender?.chats.push(newChat._id);
-    const receiver = await User.findOne({username : msgObject.receiver});
     receiver?.chats.push(newChat._id);
 
     await sender?.save();
@@ -21,10 +21,11 @@ const createChat = async (msgObject : any) => {
 };
 
 export const updateChat = async (msgObject : any) => {
-
+    const sender = await User.findOne({username : msgObject.sender});
+    const receiver = await User.findOne({username : msgObject.receiver});
     const existingChat = await Chat.findOne({ 
         members: {
-          $all: [msgObject.sender, msgObject.receiver]
+          $all: [sender?._id, receiver?._id]
         }
       }).exec();
 
@@ -51,9 +52,9 @@ export const updateChat = async (msgObject : any) => {
     }
     chat = await Chat.findOne({ 
         members: {
-            $all: [msgObject.sender, msgObject.receiver]
+          $all: [sender?._id, receiver?._id]
         }
-    }).populate({path : "messages lastMessage"}).exec();
+      }).populate({path : "members messages lastMessage"}).exec();
 
     return {message , chat};
 }

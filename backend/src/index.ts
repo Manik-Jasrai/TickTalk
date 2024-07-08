@@ -31,6 +31,7 @@ import loginRouter from "./routes/login";
 import logoutRouter from "./routes/logout";
 import refreshRouter from "./routes/refresh";
 import chatRouter from "./routes/chat";
+import userRouter from "./routes/user";
 //connecting to DB
 connectDB();
 
@@ -54,6 +55,7 @@ app.use('/refresh',refreshRouter);
 app.use(verifyJWT);// Use to Authenticate our http endpoints
 
 app.use('/chat',chatRouter);
+app.use('/user',userRouter);
 app.get('/helloworld',(req : Request,res : Response) => {
     res.send("Hello World");
 });

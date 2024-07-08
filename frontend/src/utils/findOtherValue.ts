@@ -1,6 +1,6 @@
-const findOtherValue = (arr : string[],knownValue : string) : string | null => {
+const findOtherValue = (arr : any[],knownValue : string) : any => {
     for (let value of arr) {
-        if (value !== knownValue) {
+        if (value.username !== knownValue) {
         return value;
         }
     }
