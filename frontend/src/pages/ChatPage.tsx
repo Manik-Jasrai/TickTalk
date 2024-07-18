@@ -32,7 +32,7 @@ const ChatPage = () => {
   useEffect(() =>{
     try {
       getAllChats(user, setChats);
-      const newSocket = new WebSocket(`ws://localhost:3000/?token=${user.token}`);
+      const newSocket = new WebSocket(`wss://618013e6-f12f-4e54-9967-c0a24dad1bf6-00-1wqxjggjuttbz.sisko.replit.dev/?token=${user.token}`);
       newSocket.onopen = () => {
         console.log('Connection Established!!');
       }
