@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../api/axios";
+import axios from "../api/axiosWithInterpretor";
 import { useRecoilValue } from "recoil";
 import { userState } from "../atoms/userState";
 

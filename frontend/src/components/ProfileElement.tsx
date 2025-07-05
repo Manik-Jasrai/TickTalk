@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil"
 import { userState } from "../atoms/userState"
-import axios from "../api/axios";
+import axios from "../api/axiosWithInterpretor";
 import { Link } from "react-router-dom";
 
 const ProfileElement = () => {

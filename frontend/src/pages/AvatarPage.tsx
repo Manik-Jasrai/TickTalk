@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../api/axios";
+import axios from "../api/axiosWithInterpretor";
 import { useRecoilState } from "recoil";
 import { userState } from "../atoms/userState";
 import { useNavigate } from "react-router-dom";

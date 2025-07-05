@@ -29,7 +29,7 @@ export const handleRefresh = async (req : Request,res : Response) => {
                 { expiresIn : '30m'}
             );
 
-            res.json({ accessToken });
+            res.json({user : validUser, accessToken });
 
         }
     )

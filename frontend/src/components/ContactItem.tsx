@@ -5,7 +5,6 @@ import findOtherValue from "../utils/findOtherValue";
 
 const ContactItem = ({chat , setCurrChat} : any) => {
 
-
   const user = useRecoilValue(userState);
   const otherUser = findOtherValue(chat.members , user.username as string);
   const lastMessage : string = chat.lastMessage.content;

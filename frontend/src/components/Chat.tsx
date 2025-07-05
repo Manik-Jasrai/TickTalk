@@ -20,6 +20,7 @@ const Chat = ({ socket , currChat} : {socket : WebSocket | null , currChat : any
       receiver : otherUser.username,
       content : input
     }
+    console.log(input)
     socket?.send(JSON.stringify(messageObject));
     setInput('');
   };
@@ -27,6 +28,7 @@ const Chat = ({ socket , currChat} : {socket : WebSocket | null , currChat : any
 
   useEffect(()=>{
     setMessages(currChat.messages || []);
+    console.log(messages);
   },[currChat]);
 
   return (

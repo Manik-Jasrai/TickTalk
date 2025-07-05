@@ -7,7 +7,7 @@ const MyMessage = ({message} : any) => {
   return (
     <div className="flex justify-end my-1">
         <div className="rounded-md max-w-64 p-2 bg-blue-400">
-            <p className="text-left">{content}</p>
+            <p style={{ whiteSpace: 'pre-line' }} className="text-left">{content}</p>
             <p className="text-xs text-right">{timeStamp}</p>
         </div>
     </div>

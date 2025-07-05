@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../atoms/userState";
+import { getRecoil } from "recoil-nexus";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const LoginPage = () => {
         token,
         profile: validUser?.profile,
       });
+      console.log("1:",getRecoil(userState))
 
       navigate("/");
     } catch (err: any) {

@@ -17,10 +17,15 @@ export const userState = atom<user>({
 export const authState = selector<boolean>({
     key : 'Auth',
     get : ({get}) => {
-        const { username,token } = get(userState);
-        if (username && token) return true;
+        const { username, token } = get(userState);
+        if ( username && token) return true;
         else return false;
     }
 })
+
+export const authLoadedAtom = atom<boolean>({
+  key: 'AuthLoaded',
+  default: false,
+});
 
 

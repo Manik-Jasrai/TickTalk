@@ -19,4 +19,5 @@ export const getAllChats = async (req : Request,res : Response) => {
     if (!validUser) return res.status(401).json({'message' : 'User not found'});   
     const chats = validUser.chats;
     res.json({'chats' : chats});
+    console.log("1");
 };

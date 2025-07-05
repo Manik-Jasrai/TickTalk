@@ -20,7 +20,7 @@ export const handleLogin = async (req : Request,res : Response) => {
                 }
             },//payload
             process.env.ACCESS_TOKEN_SECRET as string,
-            { expiresIn : '30m'}
+            { expiresIn : '30s'}
         );
         const refreshToken = jwt.sign(
             {
@@ -33,7 +33,13 @@ export const handleLogin = async (req : Request,res : Response) => {
         );
         await User.updateOne(validUser as FilterQuery<IUser>, {  refreshToken });
         
-        res.cookie('jwt',refreshToken,{ httpOnly:true, maxAge : 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', refreshToken, { 
+            httpOnly: true, 
+            sameSite: 'lax',        // or 'None' + secure for cross-site
+            secure: false,          // set to true in production (with HTTPS)
+            maxAge: 24 * 60 * 60 * 1000
+            });
+
         res.json( {accessToken , validUser } );
     } else {
         res.sendStatus(401);

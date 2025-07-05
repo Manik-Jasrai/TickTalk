@@ -41,9 +41,12 @@ const PORT = 3000;
 
 //middlewares
 import verifyJWT from "./middleware/verifyJWT";
+app.use(cors({
+    origin: 'http://localhost:5173', // or your frontend domain
+    credentials: true,               // allow cookies / Authorization headers
+}));
 app.use(express.urlencoded({extended : false}));
 app.use(express.json());
-app.use(cors());
 app.use(cookieParser());
 app.use(logger);
 
